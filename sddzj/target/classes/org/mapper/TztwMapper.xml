@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mapper.TztwMapper" >
+  <resultMap id="BaseResultMap" type="org.pojo.Tztw" >
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="namev" property="namev" jdbcType="VARCHAR" />
+    <result column="uploadpath" property="uploadpath" jdbcType="VARCHAR" />
+    <result column="uuid" property="uuid" jdbcType="VARCHAR" />
+    <result column="staname" property="staname" jdbcType="VARCHAR" />
+    <result column="taizhen" property="taizhen" jdbcType="INTEGER" />
+    <result column="twname" property="twname" jdbcType="VARCHAR" />
+    <result column="DAtype" property="datype" jdbcType="VARCHAR" />
+    <result column="samp" property="samp" jdbcType="INTEGER" />
+    <result column="stype" property="stype" jdbcType="VARCHAR" />
+    <result column="starttime" property="starttime" jdbcType="TIMESTAMP" />
+    <result column="endtime" property="endtime" jdbcType="TIMESTAMP" />
+    <result column="datasec" property="datasec" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    name, namev, uploadpath, uuid, staname, taizhen, twname, DAtype, samp, stype, starttime, 
+    endtime, datasec
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.pojo.TztwExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tztw
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="org.pojo.TztwExample" >
+    delete from tztw
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.pojo.Tztw" >
+    insert into tztw (name, namev, uploadpath, 
+      uuid, staname, taizhen, 
+      twname, DAtype, samp, 
+      stype, starttime, endtime, 
+      datasec)
+    values (#{name,jdbcType=VARCHAR}, #{namev,jdbcType=VARCHAR}, #{uploadpath,jdbcType=VARCHAR}, 
+      #{uuid,jdbcType=VARCHAR}, #{staname,jdbcType=VARCHAR}, #{taizhen,jdbcType=INTEGER}, 
+      #{twname,jdbcType=VARCHAR}, #{datype,jdbcType=VARCHAR}, #{samp,jdbcType=INTEGER}, 
+      #{stype,jdbcType=VARCHAR}, #{starttime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP}, 
+      #{datasec,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="org.pojo.Tztw" >
+    insert into tztw
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="namev != null" >
+        namev,
+      </if>
+      <if test="uploadpath != null" >
+        uploadpath,
+      </if>
+      <if test="uuid != null" >
+        uuid,
+      </if>
+      <if test="staname != null" >
+        staname,
+      </if>
+      <if test="taizhen != null" >
+        taizhen,
+      </if>
+      <if test="twname != null" >
+        twname,
+      </if>
+      <if test="datype != null" >
+        DAtype,
+      </if>
+      <if test="samp != null" >
+        samp,
+      </if>
+      <if test="stype != null" >
+        stype,
+      </if>
+      <if test="starttime != null" >
+        starttime,
+      </if>
+      <if test="endtime != null" >
+        endtime,
+      </if>
+      <if test="datasec != null" >
+        datasec,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="namev != null" >
+        #{namev,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadpath != null" >
+        #{uploadpath,jdbcType=VARCHAR},
+      </if>
+      <if test="uuid != null" >
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="staname != null" >
+        #{staname,jdbcType=VARCHAR},
+      </if>
+      <if test="taizhen != null" >
+        #{taizhen,jdbcType=INTEGER},
+      </if>
+      <if test="twname != null" >
+        #{twname,jdbcType=VARCHAR},
+      </if>
+      <if test="datype != null" >
+        #{datype,jdbcType=VARCHAR},
+      </if>
+      <if test="samp != null" >
+        #{samp,jdbcType=INTEGER},
+      </if>
+      <if test="stype != null" >
+        #{stype,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datasec != null" >
+        #{datasec,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.pojo.TztwExample" resultType="java.lang.Integer" >
+    select count(*) from tztw
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tztw
+    <set >
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.namev != null" >
+        namev = #{record.namev,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uploadpath != null" >
+        uploadpath = #{record.uploadpath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uuid != null" >
+        uuid = #{record.uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staname != null" >
+        staname = #{record.staname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taizhen != null" >
+        taizhen = #{record.taizhen,jdbcType=INTEGER},
+      </if>
+      <if test="record.twname != null" >
+        twname = #{record.twname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.datype != null" >
+        DAtype = #{record.datype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.samp != null" >
+        samp = #{record.samp,jdbcType=INTEGER},
+      </if>
+      <if test="record.stype != null" >
+        stype = #{record.stype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.starttime != null" >
+        starttime = #{record.starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endtime != null" >
+        endtime = #{record.endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.datasec != null" >
+        datasec = #{record.datasec,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tztw
+    set name = #{record.name,jdbcType=VARCHAR},
+      namev = #{record.namev,jdbcType=VARCHAR},
+      uploadpath = #{record.uploadpath,jdbcType=VARCHAR},
+      uuid = #{record.uuid,jdbcType=VARCHAR},
+      staname = #{record.staname,jdbcType=VARCHAR},
+      taizhen = #{record.taizhen,jdbcType=INTEGER},
+      twname = #{record.twname,jdbcType=VARCHAR},
+      DAtype = #{record.datype,jdbcType=VARCHAR},
+      samp = #{record.samp,jdbcType=INTEGER},
+      stype = #{record.stype,jdbcType=VARCHAR},
+      starttime = #{record.starttime,jdbcType=TIMESTAMP},
+      endtime = #{record.endtime,jdbcType=TIMESTAMP},
+      datasec = #{record.datasec,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

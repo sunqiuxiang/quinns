@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mapper.TLogsMapper" >
+  <resultMap id="BaseResultMap" type="org.pojo.TLogs" >
+    <result column="log_time" property="logTime" jdbcType="VARCHAR" />
+    <result column="event" property="event" jdbcType="VARCHAR" />
+    <result column="event_producer" property="eventProducer" jdbcType="VARCHAR" />
+    <result column="event_customer" property="eventCustomer" jdbcType="VARCHAR" />
+    <result column="remark01" property="remark01" jdbcType="INTEGER" />
+    <result column="remark02" property="remark02" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    log_time, event, event_producer, event_customer, remark01, remark02
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.pojo.TLogsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_logs
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="org.pojo.TLogsExample" >
+    delete from t_logs
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.pojo.TLogs" >
+    insert into t_logs (log_time, event, event_producer, 
+      event_customer, remark01, remark02
+      )
+    values (#{logTime,jdbcType=VARCHAR}, #{event,jdbcType=VARCHAR}, #{eventProducer,jdbcType=VARCHAR}, 
+      #{eventCustomer,jdbcType=VARCHAR}, #{remark01,jdbcType=INTEGER}, #{remark02,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.pojo.TLogs" >
+    insert into t_logs
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logTime != null" >
+        log_time,
+      </if>
+      <if test="event != null" >
+        event,
+      </if>
+      <if test="eventProducer != null" >
+        event_producer,
+      </if>
+      <if test="eventCustomer != null" >
+        event_customer,
+      </if>
+      <if test="remark01 != null" >
+        remark01,
+      </if>
+      <if test="remark02 != null" >
+        remark02,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="logTime != null" >
+        #{logTime,jdbcType=VARCHAR},
+      </if>
+      <if test="event != null" >
+        #{event,jdbcType=VARCHAR},
+      </if>
+      <if test="eventProducer != null" >
+        #{eventProducer,jdbcType=VARCHAR},
+      </if>
+      <if test="eventCustomer != null" >
+        #{eventCustomer,jdbcType=VARCHAR},
+      </if>
+      <if test="remark01 != null" >
+        #{remark01,jdbcType=INTEGER},
+      </if>
+      <if test="remark02 != null" >
+        #{remark02,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.pojo.TLogsExample" resultType="java.lang.Integer" >
+    select count(*) from t_logs
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_logs
+    <set >
+      <if test="record.logTime != null" >
+        log_time = #{record.logTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.event != null" >
+        event = #{record.event,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eventProducer != null" >
+        event_producer = #{record.eventProducer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eventCustomer != null" >
+        event_customer = #{record.eventCustomer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark01 != null" >
+        remark01 = #{record.remark01,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark02 != null" >
+        remark02 = #{record.remark02,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_logs
+    set log_time = #{record.logTime,jdbcType=VARCHAR},
+      event = #{record.event,jdbcType=VARCHAR},
+      event_producer = #{record.eventProducer,jdbcType=VARCHAR},
+      event_customer = #{record.eventCustomer,jdbcType=VARCHAR},
+      remark01 = #{record.remark01,jdbcType=INTEGER},
+      remark02 = #{record.remark02,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

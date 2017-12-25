@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mapper.TTaskResultSparkMapper" >
+  <resultMap id="BaseResultMap" type="org.pojo.TTaskResultSpark" >
+    <result column="result_id" property="resultId" jdbcType="INTEGER" />
+    <result column="result_path" property="resultPath" jdbcType="VARCHAR" />
+    <result column="result_length" property="resultLength" jdbcType="VARCHAR" />
+    <result column="task_id" property="taskId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    result_id, result_path, result_length, task_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.pojo.TTaskResultSparkExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_task_result_spark
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="org.pojo.TTaskResultSparkExample" >
+    delete from t_task_result_spark
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.pojo.TTaskResultSpark" >
+    insert into t_task_result_spark (result_id, result_path, result_length, 
+      task_id)
+    values (#{resultId,jdbcType=INTEGER}, #{resultPath,jdbcType=VARCHAR}, #{resultLength,jdbcType=VARCHAR}, 
+      #{taskId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="org.pojo.TTaskResultSpark" >
+    insert into t_task_result_spark
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="resultId != null" >
+        result_id,
+      </if>
+      <if test="resultPath != null" >
+        result_path,
+      </if>
+      <if test="resultLength != null" >
+        result_length,
+      </if>
+      <if test="taskId != null" >
+        task_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="resultId != null" >
+        #{resultId,jdbcType=INTEGER},
+      </if>
+      <if test="resultPath != null" >
+        #{resultPath,jdbcType=VARCHAR},
+      </if>
+      <if test="resultLength != null" >
+        #{resultLength,jdbcType=VARCHAR},
+      </if>
+      <if test="taskId != null" >
+        #{taskId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.pojo.TTaskResultSparkExample" resultType="java.lang.Integer" >
+    select count(*) from t_task_result_spark
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_task_result_spark
+    <set >
+      <if test="record.resultId != null" >
+        result_id = #{record.resultId,jdbcType=INTEGER},
+      </if>
+      <if test="record.resultPath != null" >
+        result_path = #{record.resultPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resultLength != null" >
+        result_length = #{record.resultLength,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskId != null" >
+        task_id = #{record.taskId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_task_result_spark
+    set result_id = #{record.resultId,jdbcType=INTEGER},
+      result_path = #{record.resultPath,jdbcType=VARCHAR},
+      result_length = #{record.resultLength,jdbcType=VARCHAR},
+      task_id = #{record.taskId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

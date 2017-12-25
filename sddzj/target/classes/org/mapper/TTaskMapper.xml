@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mapper.TTaskMapper" >
+  <resultMap id="BaseResultMap" type="org.pojo.TTask" >
+    <id column="task_id" property="taskId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="monitor" property="monitor" jdbcType="VARCHAR" />
+    <result column="parameter" property="parameter" jdbcType="VARCHAR" />
+    <result column="time_start" property="timeStart" jdbcType="VARCHAR" />
+    <result column="time_end" property="timeEnd" jdbcType="VARCHAR" />
+    <result column="task_status" property="taskStatus" jdbcType="VARCHAR" />
+    <result column="task_time_start" property="taskTimeStart" jdbcType="VARCHAR" />
+    <result column="task_time_end" property="taskTimeEnd" jdbcType="VARCHAR" />
+    <result column="task_status_spark" property="taskStatusSpark" jdbcType="VARCHAR" />
+    <result column="task_time_start_spark" property="taskTimeStartSpark" jdbcType="VARCHAR" />
+    <result column="task_time_end_spark" property="taskTimeEndSpark" jdbcType="VARCHAR" />
+    <result column="muban_path" property="mubanPath" jdbcType="VARCHAR" />
+    <result column="jar_path" property="jarPath" jdbcType="VARCHAR" />
+    <result column="reviewed" property="reviewed" jdbcType="INTEGER" />
+    <result column="auditor" property="auditor" jdbcType="VARCHAR" />
+    <result column="applytime" property="applytime" jdbcType="VARCHAR" />
+    <result column="deadline" property="deadline" jdbcType="VARCHAR" />
+    <result column="notice" property="notice" jdbcType="INTEGER" />
+    <result column="checktime" property="checktime" jdbcType="VARCHAR" />
+    <result column="taizhen" property="taizhen" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    task_id, user_id, monitor, parameter, time_start, time_end, task_status, task_time_start, 
+    task_time_end, task_status_spark, task_time_start_spark, task_time_end_spark, muban_path, 
+    jar_path, reviewed, auditor, applytime, deadline, notice, checktime, taizhen, status
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.pojo.TTaskExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_task
+    where task_id = #{taskId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_task
+    where task_id = #{taskId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.pojo.TTaskExample" >
+    delete from t_task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.pojo.TTask" >
+    insert into t_task (task_id, user_id, monitor, 
+      parameter, time_start, time_end, 
+      task_status, task_time_start, task_time_end, 
+      task_status_spark, task_time_start_spark, task_time_end_spark, 
+      muban_path, jar_path, reviewed, 
+      auditor, applytime, deadline, 
+      notice, checktime, taizhen, 
+      status)
+    values (#{taskId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{monitor,jdbcType=VARCHAR}, 
+      #{parameter,jdbcType=VARCHAR}, #{timeStart,jdbcType=VARCHAR}, #{timeEnd,jdbcType=VARCHAR}, 
+      #{taskStatus,jdbcType=VARCHAR}, #{taskTimeStart,jdbcType=VARCHAR}, #{taskTimeEnd,jdbcType=VARCHAR}, 
+      #{taskStatusSpark,jdbcType=VARCHAR}, #{taskTimeStartSpark,jdbcType=VARCHAR}, #{taskTimeEndSpark,jdbcType=VARCHAR}, 
+      #{mubanPath,jdbcType=VARCHAR}, #{jarPath,jdbcType=VARCHAR}, #{reviewed,jdbcType=INTEGER}, 
+      #{auditor,jdbcType=VARCHAR}, #{applytime,jdbcType=VARCHAR}, #{deadline,jdbcType=VARCHAR}, 
+      #{notice,jdbcType=INTEGER}, #{checktime,jdbcType=VARCHAR}, #{taizhen,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.pojo.TTask" >
+    insert into t_task
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="taskId != null" >
+        task_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="monitor != null" >
+        monitor,
+      </if>
+      <if test="parameter != null" >
+        parameter,
+      </if>
+      <if test="timeStart != null" >
+        time_start,
+      </if>
+      <if test="timeEnd != null" >
+        time_end,
+      </if>
+      <if test="taskStatus != null" >
+        task_status,
+      </if>
+      <if test="taskTimeStart != null" >
+        task_time_start,
+      </if>
+      <if test="taskTimeEnd != null" >
+        task_time_end,
+      </if>
+      <if test="taskStatusSpark != null" >
+        task_status_spark,
+      </if>
+      <if test="taskTimeStartSpark != null" >
+        task_time_start_spark,
+      </if>
+      <if test="taskTimeEndSpark != null" >
+        task_time_end_spark,
+      </if>
+      <if test="mubanPath != null" >
+        muban_path,
+      </if>
+      <if test="jarPath != null" >
+        jar_path,
+      </if>
+      <if test="reviewed != null" >
+        reviewed,
+      </if>
+      <if test="auditor != null" >
+        auditor,
+      </if>
+      <if test="applytime != null" >
+        applytime,
+      </if>
+      <if test="deadline != null" >
+        deadline,
+      </if>
+      <if test="notice != null" >
+        notice,
+      </if>
+      <if test="checktime != null" >
+        checktime,
+      </if>
+      <if test="taizhen != null" >
+        taizhen,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="taskId != null" >
+        #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="monitor != null" >
+        #{monitor,jdbcType=VARCHAR},
+      </if>
+      <if test="parameter != null" >
+        #{parameter,jdbcType=VARCHAR},
+      </if>
+      <if test="timeStart != null" >
+        #{timeStart,jdbcType=VARCHAR},
+      </if>
+      <if test="timeEnd != null" >
+        #{timeEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="taskStatus != null" >
+        #{taskStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="taskTimeStart != null" >
+        #{taskTimeStart,jdbcType=VARCHAR},
+      </if>
+      <if test="taskTimeEnd != null" >
+        #{taskTimeEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="taskStatusSpark != null" >
+        #{taskStatusSpark,jdbcType=VARCHAR},
+      </if>
+      <if test="taskTimeStartSpark != null" >
+        #{taskTimeStartSpark,jdbcType=VARCHAR},
+      </if>
+      <if test="taskTimeEndSpark != null" >
+        #{taskTimeEndSpark,jdbcType=VARCHAR},
+      </if>
+      <if test="mubanPath != null" >
+        #{mubanPath,jdbcType=VARCHAR},
+      </if>
+      <if test="jarPath != null" >
+        #{jarPath,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewed != null" >
+        #{reviewed,jdbcType=INTEGER},
+      </if>
+      <if test="auditor != null" >
+        #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="applytime != null" >
+        #{applytime,jdbcType=VARCHAR},
+      </if>
+      <if test="deadline != null" >
+        #{deadline,jdbcType=VARCHAR},
+      </if>
+      <if test="notice != null" >
+        #{notice,jdbcType=INTEGER},
+      </if>
+      <if test="checktime != null" >
+        #{checktime,jdbcType=VARCHAR},
+      </if>
+      <if test="taizhen != null" >
+        #{taizhen,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.pojo.TTaskExample" resultType="java.lang.Integer" >
+    select count(*) from t_task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_task
+    <set >
+      <if test="record.taskId != null" >
+        task_id = #{record.taskId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.monitor != null" >
+        monitor = #{record.monitor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parameter != null" >
+        parameter = #{record.parameter,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timeStart != null" >
+        time_start = #{record.timeStart,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timeEnd != null" >
+        time_end = #{record.timeEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskStatus != null" >
+        task_status = #{record.taskStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskTimeStart != null" >
+        task_time_start = #{record.taskTimeStart,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskTimeEnd != null" >
+        task_time_end = #{record.taskTimeEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskStatusSpark != null" >
+        task_status_spark = #{record.taskStatusSpark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskTimeStartSpark != null" >
+        task_time_start_spark = #{record.taskTimeStartSpark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskTimeEndSpark != null" >
+        task_time_end_spark = #{record.taskTimeEndSpark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mubanPath != null" >
+        muban_path = #{record.mubanPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jarPath != null" >
+        jar_path = #{record.jarPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reviewed != null" >
+        reviewed = #{record.reviewed,jdbcType=INTEGER},
+      </if>
+      <if test="record.auditor != null" >
+        auditor = #{record.auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applytime != null" >
+        applytime = #{record.applytime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deadline != null" >
+        deadline = #{record.deadline,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notice != null" >
+        notice = #{record.notice,jdbcType=INTEGER},
+      </if>
+      <if test="record.checktime != null" >
+        checktime = #{record.checktime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taizhen != null" >
+        taizhen = #{record.taizhen,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_task
+    set task_id = #{record.taskId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      monitor = #{record.monitor,jdbcType=VARCHAR},
+      parameter = #{record.parameter,jdbcType=VARCHAR},
+      time_start = #{record.timeStart,jdbcType=VARCHAR},
+      time_end = #{record.timeEnd,jdbcType=VARCHAR},
+      task_status = #{record.taskStatus,jdbcType=VARCHAR},
+      task_time_start = #{record.taskTimeStart,jdbcType=VARCHAR},
+      task_time_end = #{record.taskTimeEnd,jdbcType=VARCHAR},
+      task_status_spark = #{record.taskStatusSpark,jdbcType=VARCHAR},
+      task_time_start_spark = #{record.taskTimeStartSpark,jdbcType=VARCHAR},
+      task_time_end_spark = #{record.taskTimeEndSpark,jdbcType=VARCHAR},
+      muban_path = #{record.mubanPath,jdbcType=VARCHAR},
+      jar_path = #{record.jarPath,jdbcType=VARCHAR},
+      reviewed = #{record.reviewed,jdbcType=INTEGER},
+      auditor = #{record.auditor,jdbcType=VARCHAR},
+      applytime = #{record.applytime,jdbcType=VARCHAR},
+      deadline = #{record.deadline,jdbcType=VARCHAR},
+      notice = #{record.notice,jdbcType=INTEGER},
+      checktime = #{record.checktime,jdbcType=VARCHAR},
+      taizhen = #{record.taizhen,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.pojo.TTask" >
+    update t_task
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="monitor != null" >
+        monitor = #{monitor,jdbcType=VARCHAR},
+      </if>
+      <if test="parameter != null" >
+        parameter = #{parameter,jdbcType=VARCHAR},
+      </if>
+      <if test="timeStart != null" >
+        time_start = #{timeStart,jdbcType=VARCHAR},
+      </if>
+      <if test="timeEnd != null" >
+        time_end = #{timeEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="taskStatus != null" >
+        task_status = #{taskStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="taskTimeStart != null" >
+        task_time_start = #{taskTimeStart,jdbcType=VARCHAR},
+      </if>
+      <if test="taskTimeEnd != null" >
+        task_time_end = #{taskTimeEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="taskStatusSpark != null" >
+        task_status_spark = #{taskStatusSpark,jdbcType=VARCHAR},
+      </if>
+      <if test="taskTimeStartSpark != null" >
+        task_time_start_spark = #{taskTimeStartSpark,jdbcType=VARCHAR},
+      </if>
+      <if test="taskTimeEndSpark != null" >
+        task_time_end_spark = #{taskTimeEndSpark,jdbcType=VARCHAR},
+      </if>
+      <if test="mubanPath != null" >
+        muban_path = #{mubanPath,jdbcType=VARCHAR},
+      </if>
+      <if test="jarPath != null" >
+        jar_path = #{jarPath,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewed != null" >
+        reviewed = #{reviewed,jdbcType=INTEGER},
+      </if>
+      <if test="auditor != null" >
+        auditor = #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="applytime != null" >
+        applytime = #{applytime,jdbcType=VARCHAR},
+      </if>
+      <if test="deadline != null" >
+        deadline = #{deadline,jdbcType=VARCHAR},
+      </if>
+      <if test="notice != null" >
+        notice = #{notice,jdbcType=INTEGER},
+      </if>
+      <if test="checktime != null" >
+        checktime = #{checktime,jdbcType=VARCHAR},
+      </if>
+      <if test="taizhen != null" >
+        taizhen = #{taizhen,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where task_id = #{taskId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.pojo.TTask" >
+    update t_task
+    set user_id = #{userId,jdbcType=INTEGER},
+      monitor = #{monitor,jdbcType=VARCHAR},
+      parameter = #{parameter,jdbcType=VARCHAR},
+      time_start = #{timeStart,jdbcType=VARCHAR},
+      time_end = #{timeEnd,jdbcType=VARCHAR},
+      task_status = #{taskStatus,jdbcType=VARCHAR},
+      task_time_start = #{taskTimeStart,jdbcType=VARCHAR},
+      task_time_end = #{taskTimeEnd,jdbcType=VARCHAR},
+      task_status_spark = #{taskStatusSpark,jdbcType=VARCHAR},
+      task_time_start_spark = #{taskTimeStartSpark,jdbcType=VARCHAR},
+      task_time_end_spark = #{taskTimeEndSpark,jdbcType=VARCHAR},
+      muban_path = #{mubanPath,jdbcType=VARCHAR},
+      jar_path = #{jarPath,jdbcType=VARCHAR},
+      reviewed = #{reviewed,jdbcType=INTEGER},
+      auditor = #{auditor,jdbcType=VARCHAR},
+      applytime = #{applytime,jdbcType=VARCHAR},
+      deadline = #{deadline,jdbcType=VARCHAR},
+      notice = #{notice,jdbcType=INTEGER},
+      checktime = #{checktime,jdbcType=VARCHAR},
+      taizhen = #{taizhen,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR}
+    where task_id = #{taskId,jdbcType=INTEGER}
+  </update>
+  <update id="updates" parameterType="java.lang.Integer">
+		update t_task set reviewed = '3' where task_id = #{taskId,jdbcType=INTEGER}
+  </update>
+  
+</mapper>

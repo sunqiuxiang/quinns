@@ -1,0 +1,649 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mapper.MdtzMapper" >
+  <resultMap id="BaseResultMap" type="org.pojo.Mdtz" >
+    <id column="uuid" property="uuid" jdbcType="VARCHAR" />
+    <result column="tw_uuid" property="twUuid" jdbcType="VARCHAR" />
+    <result column="staid" property="staid" jdbcType="INTEGER" />
+    <result column="staname" property="staname" jdbcType="VARCHAR" />
+    <result column="DAtype" property="datype" jdbcType="VARCHAR" />
+    <result column="DAlen" property="dalen" jdbcType="INTEGER" />
+    <result column="v" property="v" jdbcType="REAL" />
+    <result column="samp" property="samp" jdbcType="INTEGER" />
+    <result column="stacom" property="stacom" jdbcType="INTEGER" />
+    <result column="bc" property="bc" jdbcType="INTEGER" />
+    <result column="tp" property="tp" jdbcType="VARCHAR" />
+    <result column="checktime" property="checktime" jdbcType="INTEGER" />
+    <result column="timetype" property="timetype" jdbcType="VARCHAR" />
+    <result column="subtime" property="subtime" jdbcType="REAL" />
+    <result column="stalat" property="stalat" jdbcType="REAL" />
+    <result column="stalon" property="stalon" jdbcType="REAL" />
+    <result column="shei" property="shei" jdbcType="REAL" />
+    <result column="swei" property="swei" jdbcType="INTEGER" />
+    <result column="vmol" property="vmol" jdbcType="INTEGER" />
+    <result column="dmol" property="dmol" jdbcType="INTEGER" />
+    <result column="stype" property="stype" jdbcType="VARCHAR" />
+    <result column="gfactore" property="gfactore" jdbcType="REAL" />
+    <result column="gfactorn" property="gfactorn" jdbcType="REAL" />
+    <result column="gfactorz" property="gfactorz" jdbcType="REAL" />
+    <result column="dgreee" property="dgreee" jdbcType="INTEGER" />
+    <result column="dgreen" property="dgreen" jdbcType="INTEGER" />
+    <result column="dgreez" property="dgreez" jdbcType="INTEGER" />
+    <result column="ncid" property="ncid" jdbcType="INTEGER" />
+    <result column="ecid" property="ecid" jdbcType="INTEGER" />
+    <result column="ucid" property="ucid" jdbcType="INTEGER" />
+    <result column="ncname" property="ncname" jdbcType="VARCHAR" />
+    <result column="ecname" property="ecname" jdbcType="VARCHAR" />
+    <result column="ucname" property="ucname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    uuid, tw_uuid, staid, staname, DAtype, DAlen, v, samp, stacom, bc, tp, checktime, 
+    timetype, subtime, stalat, stalon, shei, swei, vmol, dmol, stype, gfactore, gfactorn, 
+    gfactorz, dgreee, dgreen, dgreez, ncid, ecid, ucid, ncname, ecname, ucname
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.pojo.MdtzExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mdtz
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from mdtz
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from mdtz
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.pojo.MdtzExample" >
+    delete from mdtz
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.pojo.Mdtz" >
+    insert into mdtz (uuid, tw_uuid, staid, 
+      staname, DAtype, DAlen, 
+      v, samp, stacom, bc, 
+      tp, checktime, timetype, 
+      subtime, stalat, stalon, shei, 
+      swei, vmol, dmol, stype, 
+      gfactore, gfactorn, gfactorz, 
+      dgreee, dgreen, dgreez, 
+      ncid, ecid, ucid, ncname, 
+      ecname, ucname)
+    values (#{uuid,jdbcType=VARCHAR}, #{twUuid,jdbcType=VARCHAR}, #{staid,jdbcType=INTEGER}, 
+      #{staname,jdbcType=VARCHAR}, #{datype,jdbcType=VARCHAR}, #{dalen,jdbcType=INTEGER}, 
+      #{v,jdbcType=REAL}, #{samp,jdbcType=INTEGER}, #{stacom,jdbcType=INTEGER}, #{bc,jdbcType=INTEGER}, 
+      #{tp,jdbcType=VARCHAR}, #{checktime,jdbcType=INTEGER}, #{timetype,jdbcType=VARCHAR}, 
+      #{subtime,jdbcType=REAL}, #{stalat,jdbcType=REAL}, #{stalon,jdbcType=REAL}, #{shei,jdbcType=REAL}, 
+      #{swei,jdbcType=INTEGER}, #{vmol,jdbcType=INTEGER}, #{dmol,jdbcType=INTEGER}, #{stype,jdbcType=VARCHAR}, 
+      #{gfactore,jdbcType=REAL}, #{gfactorn,jdbcType=REAL}, #{gfactorz,jdbcType=REAL}, 
+      #{dgreee,jdbcType=INTEGER}, #{dgreen,jdbcType=INTEGER}, #{dgreez,jdbcType=INTEGER}, 
+      #{ncid,jdbcType=INTEGER}, #{ecid,jdbcType=INTEGER}, #{ucid,jdbcType=INTEGER}, #{ncname,jdbcType=VARCHAR}, 
+      #{ecname,jdbcType=VARCHAR}, #{ucname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.pojo.Mdtz" >
+    insert into mdtz
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uuid != null" >
+        uuid,
+      </if>
+      <if test="twUuid != null" >
+        tw_uuid,
+      </if>
+      <if test="staid != null" >
+        staid,
+      </if>
+      <if test="staname != null" >
+        staname,
+      </if>
+      <if test="datype != null" >
+        DAtype,
+      </if>
+      <if test="dalen != null" >
+        DAlen,
+      </if>
+      <if test="v != null" >
+        v,
+      </if>
+      <if test="samp != null" >
+        samp,
+      </if>
+      <if test="stacom != null" >
+        stacom,
+      </if>
+      <if test="bc != null" >
+        bc,
+      </if>
+      <if test="tp != null" >
+        tp,
+      </if>
+      <if test="checktime != null" >
+        checktime,
+      </if>
+      <if test="timetype != null" >
+        timetype,
+      </if>
+      <if test="subtime != null" >
+        subtime,
+      </if>
+      <if test="stalat != null" >
+        stalat,
+      </if>
+      <if test="stalon != null" >
+        stalon,
+      </if>
+      <if test="shei != null" >
+        shei,
+      </if>
+      <if test="swei != null" >
+        swei,
+      </if>
+      <if test="vmol != null" >
+        vmol,
+      </if>
+      <if test="dmol != null" >
+        dmol,
+      </if>
+      <if test="stype != null" >
+        stype,
+      </if>
+      <if test="gfactore != null" >
+        gfactore,
+      </if>
+      <if test="gfactorn != null" >
+        gfactorn,
+      </if>
+      <if test="gfactorz != null" >
+        gfactorz,
+      </if>
+      <if test="dgreee != null" >
+        dgreee,
+      </if>
+      <if test="dgreen != null" >
+        dgreen,
+      </if>
+      <if test="dgreez != null" >
+        dgreez,
+      </if>
+      <if test="ncid != null" >
+        ncid,
+      </if>
+      <if test="ecid != null" >
+        ecid,
+      </if>
+      <if test="ucid != null" >
+        ucid,
+      </if>
+      <if test="ncname != null" >
+        ncname,
+      </if>
+      <if test="ecname != null" >
+        ecname,
+      </if>
+      <if test="ucname != null" >
+        ucname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uuid != null" >
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="twUuid != null" >
+        #{twUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="staid != null" >
+        #{staid,jdbcType=INTEGER},
+      </if>
+      <if test="staname != null" >
+        #{staname,jdbcType=VARCHAR},
+      </if>
+      <if test="datype != null" >
+        #{datype,jdbcType=VARCHAR},
+      </if>
+      <if test="dalen != null" >
+        #{dalen,jdbcType=INTEGER},
+      </if>
+      <if test="v != null" >
+        #{v,jdbcType=REAL},
+      </if>
+      <if test="samp != null" >
+        #{samp,jdbcType=INTEGER},
+      </if>
+      <if test="stacom != null" >
+        #{stacom,jdbcType=INTEGER},
+      </if>
+      <if test="bc != null" >
+        #{bc,jdbcType=INTEGER},
+      </if>
+      <if test="tp != null" >
+        #{tp,jdbcType=VARCHAR},
+      </if>
+      <if test="checktime != null" >
+        #{checktime,jdbcType=INTEGER},
+      </if>
+      <if test="timetype != null" >
+        #{timetype,jdbcType=VARCHAR},
+      </if>
+      <if test="subtime != null" >
+        #{subtime,jdbcType=REAL},
+      </if>
+      <if test="stalat != null" >
+        #{stalat,jdbcType=REAL},
+      </if>
+      <if test="stalon != null" >
+        #{stalon,jdbcType=REAL},
+      </if>
+      <if test="shei != null" >
+        #{shei,jdbcType=REAL},
+      </if>
+      <if test="swei != null" >
+        #{swei,jdbcType=INTEGER},
+      </if>
+      <if test="vmol != null" >
+        #{vmol,jdbcType=INTEGER},
+      </if>
+      <if test="dmol != null" >
+        #{dmol,jdbcType=INTEGER},
+      </if>
+      <if test="stype != null" >
+        #{stype,jdbcType=VARCHAR},
+      </if>
+      <if test="gfactore != null" >
+        #{gfactore,jdbcType=REAL},
+      </if>
+      <if test="gfactorn != null" >
+        #{gfactorn,jdbcType=REAL},
+      </if>
+      <if test="gfactorz != null" >
+        #{gfactorz,jdbcType=REAL},
+      </if>
+      <if test="dgreee != null" >
+        #{dgreee,jdbcType=INTEGER},
+      </if>
+      <if test="dgreen != null" >
+        #{dgreen,jdbcType=INTEGER},
+      </if>
+      <if test="dgreez != null" >
+        #{dgreez,jdbcType=INTEGER},
+      </if>
+      <if test="ncid != null" >
+        #{ncid,jdbcType=INTEGER},
+      </if>
+      <if test="ecid != null" >
+        #{ecid,jdbcType=INTEGER},
+      </if>
+      <if test="ucid != null" >
+        #{ucid,jdbcType=INTEGER},
+      </if>
+      <if test="ncname != null" >
+        #{ncname,jdbcType=VARCHAR},
+      </if>
+      <if test="ecname != null" >
+        #{ecname,jdbcType=VARCHAR},
+      </if>
+      <if test="ucname != null" >
+        #{ucname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.pojo.MdtzExample" resultType="java.lang.Integer" >
+    select count(*) from mdtz
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mdtz
+    <set >
+      <if test="record.uuid != null" >
+        uuid = #{record.uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.twUuid != null" >
+        tw_uuid = #{record.twUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staid != null" >
+        staid = #{record.staid,jdbcType=INTEGER},
+      </if>
+      <if test="record.staname != null" >
+        staname = #{record.staname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.datype != null" >
+        DAtype = #{record.datype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dalen != null" >
+        DAlen = #{record.dalen,jdbcType=INTEGER},
+      </if>
+      <if test="record.v != null" >
+        v = #{record.v,jdbcType=REAL},
+      </if>
+      <if test="record.samp != null" >
+        samp = #{record.samp,jdbcType=INTEGER},
+      </if>
+      <if test="record.stacom != null" >
+        stacom = #{record.stacom,jdbcType=INTEGER},
+      </if>
+      <if test="record.bc != null" >
+        bc = #{record.bc,jdbcType=INTEGER},
+      </if>
+      <if test="record.tp != null" >
+        tp = #{record.tp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checktime != null" >
+        checktime = #{record.checktime,jdbcType=INTEGER},
+      </if>
+      <if test="record.timetype != null" >
+        timetype = #{record.timetype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subtime != null" >
+        subtime = #{record.subtime,jdbcType=REAL},
+      </if>
+      <if test="record.stalat != null" >
+        stalat = #{record.stalat,jdbcType=REAL},
+      </if>
+      <if test="record.stalon != null" >
+        stalon = #{record.stalon,jdbcType=REAL},
+      </if>
+      <if test="record.shei != null" >
+        shei = #{record.shei,jdbcType=REAL},
+      </if>
+      <if test="record.swei != null" >
+        swei = #{record.swei,jdbcType=INTEGER},
+      </if>
+      <if test="record.vmol != null" >
+        vmol = #{record.vmol,jdbcType=INTEGER},
+      </if>
+      <if test="record.dmol != null" >
+        dmol = #{record.dmol,jdbcType=INTEGER},
+      </if>
+      <if test="record.stype != null" >
+        stype = #{record.stype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gfactore != null" >
+        gfactore = #{record.gfactore,jdbcType=REAL},
+      </if>
+      <if test="record.gfactorn != null" >
+        gfactorn = #{record.gfactorn,jdbcType=REAL},
+      </if>
+      <if test="record.gfactorz != null" >
+        gfactorz = #{record.gfactorz,jdbcType=REAL},
+      </if>
+      <if test="record.dgreee != null" >
+        dgreee = #{record.dgreee,jdbcType=INTEGER},
+      </if>
+      <if test="record.dgreen != null" >
+        dgreen = #{record.dgreen,jdbcType=INTEGER},
+      </if>
+      <if test="record.dgreez != null" >
+        dgreez = #{record.dgreez,jdbcType=INTEGER},
+      </if>
+      <if test="record.ncid != null" >
+        ncid = #{record.ncid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ecid != null" >
+        ecid = #{record.ecid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ucid != null" >
+        ucid = #{record.ucid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ncname != null" >
+        ncname = #{record.ncname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ecname != null" >
+        ecname = #{record.ecname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ucname != null" >
+        ucname = #{record.ucname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mdtz
+    set uuid = #{record.uuid,jdbcType=VARCHAR},
+      tw_uuid = #{record.twUuid,jdbcType=VARCHAR},
+      staid = #{record.staid,jdbcType=INTEGER},
+      staname = #{record.staname,jdbcType=VARCHAR},
+      DAtype = #{record.datype,jdbcType=VARCHAR},
+      DAlen = #{record.dalen,jdbcType=INTEGER},
+      v = #{record.v,jdbcType=REAL},
+      samp = #{record.samp,jdbcType=INTEGER},
+      stacom = #{record.stacom,jdbcType=INTEGER},
+      bc = #{record.bc,jdbcType=INTEGER},
+      tp = #{record.tp,jdbcType=VARCHAR},
+      checktime = #{record.checktime,jdbcType=INTEGER},
+      timetype = #{record.timetype,jdbcType=VARCHAR},
+      subtime = #{record.subtime,jdbcType=REAL},
+      stalat = #{record.stalat,jdbcType=REAL},
+      stalon = #{record.stalon,jdbcType=REAL},
+      shei = #{record.shei,jdbcType=REAL},
+      swei = #{record.swei,jdbcType=INTEGER},
+      vmol = #{record.vmol,jdbcType=INTEGER},
+      dmol = #{record.dmol,jdbcType=INTEGER},
+      stype = #{record.stype,jdbcType=VARCHAR},
+      gfactore = #{record.gfactore,jdbcType=REAL},
+      gfactorn = #{record.gfactorn,jdbcType=REAL},
+      gfactorz = #{record.gfactorz,jdbcType=REAL},
+      dgreee = #{record.dgreee,jdbcType=INTEGER},
+      dgreen = #{record.dgreen,jdbcType=INTEGER},
+      dgreez = #{record.dgreez,jdbcType=INTEGER},
+      ncid = #{record.ncid,jdbcType=INTEGER},
+      ecid = #{record.ecid,jdbcType=INTEGER},
+      ucid = #{record.ucid,jdbcType=INTEGER},
+      ncname = #{record.ncname,jdbcType=VARCHAR},
+      ecname = #{record.ecname,jdbcType=VARCHAR},
+      ucname = #{record.ucname,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.pojo.Mdtz" >
+    update mdtz
+    <set >
+      <if test="twUuid != null" >
+        tw_uuid = #{twUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="staid != null" >
+        staid = #{staid,jdbcType=INTEGER},
+      </if>
+      <if test="staname != null" >
+        staname = #{staname,jdbcType=VARCHAR},
+      </if>
+      <if test="datype != null" >
+        DAtype = #{datype,jdbcType=VARCHAR},
+      </if>
+      <if test="dalen != null" >
+        DAlen = #{dalen,jdbcType=INTEGER},
+      </if>
+      <if test="v != null" >
+        v = #{v,jdbcType=REAL},
+      </if>
+      <if test="samp != null" >
+        samp = #{samp,jdbcType=INTEGER},
+      </if>
+      <if test="stacom != null" >
+        stacom = #{stacom,jdbcType=INTEGER},
+      </if>
+      <if test="bc != null" >
+        bc = #{bc,jdbcType=INTEGER},
+      </if>
+      <if test="tp != null" >
+        tp = #{tp,jdbcType=VARCHAR},
+      </if>
+      <if test="checktime != null" >
+        checktime = #{checktime,jdbcType=INTEGER},
+      </if>
+      <if test="timetype != null" >
+        timetype = #{timetype,jdbcType=VARCHAR},
+      </if>
+      <if test="subtime != null" >
+        subtime = #{subtime,jdbcType=REAL},
+      </if>
+      <if test="stalat != null" >
+        stalat = #{stalat,jdbcType=REAL},
+      </if>
+      <if test="stalon != null" >
+        stalon = #{stalon,jdbcType=REAL},
+      </if>
+      <if test="shei != null" >
+        shei = #{shei,jdbcType=REAL},
+      </if>
+      <if test="swei != null" >
+        swei = #{swei,jdbcType=INTEGER},
+      </if>
+      <if test="vmol != null" >
+        vmol = #{vmol,jdbcType=INTEGER},
+      </if>
+      <if test="dmol != null" >
+        dmol = #{dmol,jdbcType=INTEGER},
+      </if>
+      <if test="stype != null" >
+        stype = #{stype,jdbcType=VARCHAR},
+      </if>
+      <if test="gfactore != null" >
+        gfactore = #{gfactore,jdbcType=REAL},
+      </if>
+      <if test="gfactorn != null" >
+        gfactorn = #{gfactorn,jdbcType=REAL},
+      </if>
+      <if test="gfactorz != null" >
+        gfactorz = #{gfactorz,jdbcType=REAL},
+      </if>
+      <if test="dgreee != null" >
+        dgreee = #{dgreee,jdbcType=INTEGER},
+      </if>
+      <if test="dgreen != null" >
+        dgreen = #{dgreen,jdbcType=INTEGER},
+      </if>
+      <if test="dgreez != null" >
+        dgreez = #{dgreez,jdbcType=INTEGER},
+      </if>
+      <if test="ncid != null" >
+        ncid = #{ncid,jdbcType=INTEGER},
+      </if>
+      <if test="ecid != null" >
+        ecid = #{ecid,jdbcType=INTEGER},
+      </if>
+      <if test="ucid != null" >
+        ucid = #{ucid,jdbcType=INTEGER},
+      </if>
+      <if test="ncname != null" >
+        ncname = #{ncname,jdbcType=VARCHAR},
+      </if>
+      <if test="ecname != null" >
+        ecname = #{ecname,jdbcType=VARCHAR},
+      </if>
+      <if test="ucname != null" >
+        ucname = #{ucname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.pojo.Mdtz" >
+    update mdtz
+    set tw_uuid = #{twUuid,jdbcType=VARCHAR},
+      staid = #{staid,jdbcType=INTEGER},
+      staname = #{staname,jdbcType=VARCHAR},
+      DAtype = #{datype,jdbcType=VARCHAR},
+      DAlen = #{dalen,jdbcType=INTEGER},
+      v = #{v,jdbcType=REAL},
+      samp = #{samp,jdbcType=INTEGER},
+      stacom = #{stacom,jdbcType=INTEGER},
+      bc = #{bc,jdbcType=INTEGER},
+      tp = #{tp,jdbcType=VARCHAR},
+      checktime = #{checktime,jdbcType=INTEGER},
+      timetype = #{timetype,jdbcType=VARCHAR},
+      subtime = #{subtime,jdbcType=REAL},
+      stalat = #{stalat,jdbcType=REAL},
+      stalon = #{stalon,jdbcType=REAL},
+      shei = #{shei,jdbcType=REAL},
+      swei = #{swei,jdbcType=INTEGER},
+      vmol = #{vmol,jdbcType=INTEGER},
+      dmol = #{dmol,jdbcType=INTEGER},
+      stype = #{stype,jdbcType=VARCHAR},
+      gfactore = #{gfactore,jdbcType=REAL},
+      gfactorn = #{gfactorn,jdbcType=REAL},
+      gfactorz = #{gfactorz,jdbcType=REAL},
+      dgreee = #{dgreee,jdbcType=INTEGER},
+      dgreen = #{dgreen,jdbcType=INTEGER},
+      dgreez = #{dgreez,jdbcType=INTEGER},
+      ncid = #{ncid,jdbcType=INTEGER},
+      ecid = #{ecid,jdbcType=INTEGER},
+      ucid = #{ucid,jdbcType=INTEGER},
+      ncname = #{ncname,jdbcType=VARCHAR},
+      ecname = #{ecname,jdbcType=VARCHAR},
+      ucname = #{ucname,jdbcType=VARCHAR}
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

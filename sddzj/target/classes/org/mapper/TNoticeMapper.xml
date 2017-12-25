@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mapper.TNoticeMapper" >
+  <resultMap id="BaseResultMap" type="org.pojo.TNotice" >
+    <id column="uuid" property="uuid" jdbcType="VARCHAR" />
+    <result column="notice_title" property="noticeTitle" jdbcType="VARCHAR" />
+    <result column="notice_content" property="noticeContent" jdbcType="VARCHAR" />
+    <result column="notice_start_time" property="noticeStartTime" jdbcType="VARCHAR" />
+    <result column="notice_end_time" property="noticeEndTime" jdbcType="VARCHAR" />
+    <result column="notice_status" property="noticeStatus" jdbcType="INTEGER" />
+    <result column="notice_creater" property="noticeCreater" jdbcType="VARCHAR" />
+    <result column="dzj_user_id" property="dzjUserId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    uuid, notice_title, notice_content, notice_start_time, notice_end_time, notice_status, 
+    notice_creater, dzj_user_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.pojo.TNoticeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_notice
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_notice
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_notice
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.pojo.TNoticeExample" >
+    delete from t_notice
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.pojo.TNotice" >
+    insert into t_notice (uuid, notice_title, notice_content, 
+      notice_start_time, notice_end_time, notice_status, 
+      notice_creater, dzj_user_id)
+    values (#{uuid,jdbcType=VARCHAR}, #{noticeTitle,jdbcType=VARCHAR}, #{noticeContent,jdbcType=VARCHAR}, 
+      #{noticeStartTime,jdbcType=VARCHAR}, #{noticeEndTime,jdbcType=VARCHAR}, #{noticeStatus,jdbcType=INTEGER}, 
+      #{noticeCreater,jdbcType=VARCHAR}, #{dzjUserId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="org.pojo.TNotice" >
+    insert into t_notice
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uuid != null" >
+        uuid,
+      </if>
+      <if test="noticeTitle != null" >
+        notice_title,
+      </if>
+      <if test="noticeContent != null" >
+        notice_content,
+      </if>
+      <if test="noticeStartTime != null" >
+        notice_start_time,
+      </if>
+      <if test="noticeEndTime != null" >
+        notice_end_time,
+      </if>
+      <if test="noticeStatus != null" >
+        notice_status,
+      </if>
+      <if test="noticeCreater != null" >
+        notice_creater,
+      </if>
+      <if test="dzjUserId != null" >
+        dzj_user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uuid != null" >
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeTitle != null" >
+        #{noticeTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeContent != null" >
+        #{noticeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeStartTime != null" >
+        #{noticeStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeEndTime != null" >
+        #{noticeEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeStatus != null" >
+        #{noticeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="noticeCreater != null" >
+        #{noticeCreater,jdbcType=VARCHAR},
+      </if>
+      <if test="dzjUserId != null" >
+        #{dzjUserId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.pojo.TNoticeExample" resultType="java.lang.Integer" >
+    select count(*) from t_notice
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_notice
+    <set >
+      <if test="record.uuid != null" >
+        uuid = #{record.uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.noticeTitle != null" >
+        notice_title = #{record.noticeTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.noticeContent != null" >
+        notice_content = #{record.noticeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.noticeStartTime != null" >
+        notice_start_time = #{record.noticeStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.noticeEndTime != null" >
+        notice_end_time = #{record.noticeEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.noticeStatus != null" >
+        notice_status = #{record.noticeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.noticeCreater != null" >
+        notice_creater = #{record.noticeCreater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dzjUserId != null" >
+        dzj_user_id = #{record.dzjUserId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_notice
+    set uuid = #{record.uuid,jdbcType=VARCHAR},
+      notice_title = #{record.noticeTitle,jdbcType=VARCHAR},
+      notice_content = #{record.noticeContent,jdbcType=VARCHAR},
+      notice_start_time = #{record.noticeStartTime,jdbcType=VARCHAR},
+      notice_end_time = #{record.noticeEndTime,jdbcType=VARCHAR},
+      notice_status = #{record.noticeStatus,jdbcType=INTEGER},
+      notice_creater = #{record.noticeCreater,jdbcType=VARCHAR},
+      dzj_user_id = #{record.dzjUserId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.pojo.TNotice" >
+    update t_notice
+    <set >
+      <if test="noticeTitle != null" >
+        notice_title = #{noticeTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeContent != null" >
+        notice_content = #{noticeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeStartTime != null" >
+        notice_start_time = #{noticeStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeEndTime != null" >
+        notice_end_time = #{noticeEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeStatus != null" >
+        notice_status = #{noticeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="noticeCreater != null" >
+        notice_creater = #{noticeCreater,jdbcType=VARCHAR},
+      </if>
+      <if test="dzjUserId != null" >
+        dzj_user_id = #{dzjUserId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.pojo.TNotice" >
+    update t_notice
+    set notice_title = #{noticeTitle,jdbcType=VARCHAR},
+      notice_content = #{noticeContent,jdbcType=VARCHAR},
+      notice_start_time = #{noticeStartTime,jdbcType=VARCHAR},
+      notice_end_time = #{noticeEndTime,jdbcType=VARCHAR},
+      notice_status = #{noticeStatus,jdbcType=INTEGER},
+      notice_creater = #{noticeCreater,jdbcType=VARCHAR},
+      dzj_user_id = #{dzjUserId,jdbcType=INTEGER}
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

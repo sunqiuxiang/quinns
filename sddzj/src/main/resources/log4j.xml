@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>     
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">     
+        
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/' >     
+ <!--      
+    <appender name="logOptionToMySQL" class="org.tools.log.Log4jForProjectDBAppander">
+    	<param name="Driver" value="com.mysql.jdbc.Driver"/>
+    	<param name="URL" value="jdbc:mysql://139.129.31.139:3306/mddate?characterEncoding=utf8;"/>
+    	<param name="User" value="root"/>
+    	<param name="Password" value="sunqiuxiang"/>
+    	<param name="Sql" value=""/>
+        <filter class="org.tools.log.RecordLevelFilter"> 
+            <param name="levelMin" value="Record" />
+            <param name="levelMax" value="Record" />
+            <param name="AcceptOnMatch" value="true" />     
+        </filter>
+         
+    </appender>     
+ -->   	
+ 	 <!-- 输出日志到文件  每天一个文件 -->  
+    <appender name="dailyRollingFile"  
+        class="org.apache.log4j.DailyRollingFileAppender">
+         <param name="Encoding" value="UTF-8" />   
+        <param name="Threshold" value="info"></param>  
+        <param name="ImmediateFlush" value="true"></param>  
+        <param name="File" value="/logs/dailyRollingFile.log"></param>  
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"></param>  
+        <layout class="org.apache.log4j.PatternLayout">  
+            <param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss\} %-5p] [%t] {%c:%L}-%m%n"></param>  
+        </layout>  
+    </appender>
+ 	
+    <!-- 根logger的设置-->     
+    <root>     
+        <priority value ="debug"/>     
+        <appender-ref ref="logOptionToMySQL"/>
+        <appender-ref ref="dailyRollingFile" /> 
+    </root>     
+</log4j:configuration>

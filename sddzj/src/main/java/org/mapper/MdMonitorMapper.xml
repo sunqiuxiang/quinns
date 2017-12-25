@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mapper.MdMonitorMapper" >
+  <resultMap id="BaseResultMap" type="org.pojo.MdMonitor" >
+    <result column="hostname" property="hostname" jdbcType="VARCHAR" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="cpu_usage" property="cpuUsage" jdbcType="VARCHAR" />
+    <result column="mem_total" property="memTotal" jdbcType="REAL" />
+    <result column="mem_used" property="memUsed" jdbcType="REAL" />
+    <result column="mem_usage" property="memUsage" jdbcType="VARCHAR" />
+    <result column="disk_total" property="diskTotal" jdbcType="REAL" />
+    <result column="disk_used" property="diskUsed" jdbcType="REAL" />
+    <result column="disk_usage" property="diskUsage" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    hostname, ip, cpu_usage, mem_total, mem_used, mem_usage, disk_total, disk_used, disk_usage, 
+    update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.pojo.MdMonitorExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from md_monitor
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="org.pojo.MdMonitorExample" >
+    delete from md_monitor
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.pojo.MdMonitor" >
+    insert into md_monitor (hostname, ip, cpu_usage, 
+      mem_total, mem_used, mem_usage, 
+      disk_total, disk_used, disk_usage, 
+      update_time)
+    values (#{hostname,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{cpuUsage,jdbcType=VARCHAR}, 
+      #{memTotal,jdbcType=REAL}, #{memUsed,jdbcType=REAL}, #{memUsage,jdbcType=VARCHAR}, 
+      #{diskTotal,jdbcType=REAL}, #{diskUsed,jdbcType=REAL}, #{diskUsage,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="org.pojo.MdMonitor" >
+    insert into md_monitor
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hostname != null" >
+        hostname,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="cpuUsage != null" >
+        cpu_usage,
+      </if>
+      <if test="memTotal != null" >
+        mem_total,
+      </if>
+      <if test="memUsed != null" >
+        mem_used,
+      </if>
+      <if test="memUsage != null" >
+        mem_usage,
+      </if>
+      <if test="diskTotal != null" >
+        disk_total,
+      </if>
+      <if test="diskUsed != null" >
+        disk_used,
+      </if>
+      <if test="diskUsage != null" >
+        disk_usage,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hostname != null" >
+        #{hostname,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="cpuUsage != null" >
+        #{cpuUsage,jdbcType=VARCHAR},
+      </if>
+      <if test="memTotal != null" >
+        #{memTotal,jdbcType=REAL},
+      </if>
+      <if test="memUsed != null" >
+        #{memUsed,jdbcType=REAL},
+      </if>
+      <if test="memUsage != null" >
+        #{memUsage,jdbcType=VARCHAR},
+      </if>
+      <if test="diskTotal != null" >
+        #{diskTotal,jdbcType=REAL},
+      </if>
+      <if test="diskUsed != null" >
+        #{diskUsed,jdbcType=REAL},
+      </if>
+      <if test="diskUsage != null" >
+        #{diskUsage,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.pojo.MdMonitorExample" resultType="java.lang.Integer" >
+    select count(*) from md_monitor
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update md_monitor
+    <set >
+      <if test="record.hostname != null" >
+        hostname = #{record.hostname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ip != null" >
+        ip = #{record.ip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cpuUsage != null" >
+        cpu_usage = #{record.cpuUsage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memTotal != null" >
+        mem_total = #{record.memTotal,jdbcType=REAL},
+      </if>
+      <if test="record.memUsed != null" >
+        mem_used = #{record.memUsed,jdbcType=REAL},
+      </if>
+      <if test="record.memUsage != null" >
+        mem_usage = #{record.memUsage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.diskTotal != null" >
+        disk_total = #{record.diskTotal,jdbcType=REAL},
+      </if>
+      <if test="record.diskUsed != null" >
+        disk_used = #{record.diskUsed,jdbcType=REAL},
+      </if>
+      <if test="record.diskUsage != null" >
+        disk_usage = #{record.diskUsage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update md_monitor
+    set hostname = #{record.hostname,jdbcType=VARCHAR},
+      ip = #{record.ip,jdbcType=VARCHAR},
+      cpu_usage = #{record.cpuUsage,jdbcType=VARCHAR},
+      mem_total = #{record.memTotal,jdbcType=REAL},
+      mem_used = #{record.memUsed,jdbcType=REAL},
+      mem_usage = #{record.memUsage,jdbcType=VARCHAR},
+      disk_total = #{record.diskTotal,jdbcType=REAL},
+      disk_used = #{record.diskUsed,jdbcType=REAL},
+      disk_usage = #{record.diskUsage,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

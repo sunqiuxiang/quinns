@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mapper.MdTasktableMapper" >
+  <resultMap id="BaseResultMap" type="org.pojo.MdTasktable" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="DepID" property="depid" jdbcType="VARCHAR" />
+    <result column="tw_uuid" property="twUuid" jdbcType="VARCHAR" />
+    <result column="auditor" property="auditor" jdbcType="VARCHAR" />
+    <result column="applyname" property="applyname" jdbcType="VARCHAR" />
+    <result column="deadline" property="deadline" jdbcType="VARCHAR" />
+    <result column="tw_name" property="twName" jdbcType="VARCHAR" />
+    <result column="tz_staname" property="tzStaname" jdbcType="VARCHAR" />
+    <result column="tz_stype" property="tzStype" jdbcType="VARCHAR" />
+    <result column="tw_starttime" property="twStarttime" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="reviewed" property="reviewed" jdbcType="VARCHAR" />
+    <result column="applytime" property="applytime" jdbcType="VARCHAR" />
+    <result column="filepath" property="filepath" jdbcType="VARCHAR" />
+    <result column="allfilepath" property="allfilepath" jdbcType="VARCHAR" />
+    <result column="flag" property="flag" jdbcType="VARCHAR" />
+    <result column="datasec" property="datasec" jdbcType="VARCHAR" />
+    <result column="taizhen" property="taizhen" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, DepID, tw_uuid, auditor, applyname, deadline, tw_name, tz_staname, tz_stype, 
+    tw_starttime, remark, reviewed, applytime, filepath, allfilepath, flag, datasec, 
+    taizhen
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.pojo.MdTasktableExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from md_tasktable
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="shenhexiazaitz" resultMap="BaseResultMap" parameterType="String">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM md_tasktable WHERE (reviewed=0 or flag=0) and taizhen=#{taizhen,jdbcType=VARCHAR} GROUP BY applytime , applyname ORDER BY applytime DESC
+  </select>
+  <select id="finduuid1" parameterType="org.pojo.MdTasktable" resultMap="BaseResultMap">
+		SELECT 
+		<include refid="Base_Column_List" />
+ 		from md_tasktable a where a.applyname=#{applyname} and a.applytime=#{applytime}
+	</select>
+	<select id="shenhexiazai1" resultMap="BaseResultMap" parameterType="org.pojo.MdTasktable">
+		SELECT * FROM (SELECT * FROM md_tasktable a WHERE a.reviewed=0 and a.applyname=#{applyname} and a.applytime=#{applytime}) c INNER JOIN mdtw b ON c.tw_uuid=b.uuid
+	</select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from md_tasktable
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from md_tasktable
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.pojo.MdTasktableExample" >
+    delete from md_tasktable
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.pojo.MdTasktable" >
+    insert into md_tasktable (id, DepID, tw_uuid, 
+      auditor, applyname, deadline, 
+      tw_name, tz_staname, tz_stype, 
+      tw_starttime, remark, reviewed, 
+      applytime, filepath, allfilepath, 
+      flag, datasec, taizhen
+      )
+    values (#{id,jdbcType=INTEGER}, #{depid,jdbcType=VARCHAR}, #{twUuid,jdbcType=VARCHAR}, 
+      #{auditor,jdbcType=VARCHAR}, #{applyname,jdbcType=VARCHAR}, #{deadline,jdbcType=VARCHAR}, 
+      #{twName,jdbcType=VARCHAR}, #{tzStaname,jdbcType=VARCHAR}, #{tzStype,jdbcType=VARCHAR}, 
+      #{twStarttime,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{reviewed,jdbcType=VARCHAR}, 
+      #{applytime,jdbcType=VARCHAR}, #{filepath,jdbcType=VARCHAR}, #{allfilepath,jdbcType=VARCHAR}, 
+      #{flag,jdbcType=VARCHAR}, #{datasec,jdbcType=VARCHAR}, #{taizhen,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.pojo.MdTasktable" >
+    insert into md_tasktable
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="depid != null" >
+        DepID,
+      </if>
+      <if test="twUuid != null" >
+        tw_uuid,
+      </if>
+      <if test="auditor != null" >
+        auditor,
+      </if>
+      <if test="applyname != null" >
+        applyname,
+      </if>
+      <if test="deadline != null" >
+        deadline,
+      </if>
+      <if test="twName != null" >
+        tw_name,
+      </if>
+      <if test="tzStaname != null" >
+        tz_staname,
+      </if>
+      <if test="tzStype != null" >
+        tz_stype,
+      </if>
+      <if test="twStarttime != null" >
+        tw_starttime,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="reviewed != null" >
+        reviewed,
+      </if>
+      <if test="applytime != null" >
+        applytime,
+      </if>
+      <if test="filepath != null" >
+        filepath,
+      </if>
+      <if test="allfilepath != null" >
+        allfilepath,
+      </if>
+      <if test="flag != null" >
+        flag,
+      </if>
+      <if test="datasec != null" >
+        datasec,
+      </if>
+      <if test="taizhen != null" >
+        taizhen,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="depid != null" >
+        #{depid,jdbcType=VARCHAR},
+      </if>
+      <if test="twUuid != null" >
+        #{twUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="auditor != null" >
+        #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="applyname != null" >
+        #{applyname,jdbcType=VARCHAR},
+      </if>
+      <if test="deadline != null" >
+        #{deadline,jdbcType=VARCHAR},
+      </if>
+      <if test="twName != null" >
+        #{twName,jdbcType=VARCHAR},
+      </if>
+      <if test="tzStaname != null" >
+        #{tzStaname,jdbcType=VARCHAR},
+      </if>
+      <if test="tzStype != null" >
+        #{tzStype,jdbcType=VARCHAR},
+      </if>
+      <if test="twStarttime != null" >
+        #{twStarttime,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewed != null" >
+        #{reviewed,jdbcType=VARCHAR},
+      </if>
+      <if test="applytime != null" >
+        #{applytime,jdbcType=VARCHAR},
+      </if>
+      <if test="filepath != null" >
+        #{filepath,jdbcType=VARCHAR},
+      </if>
+      <if test="allfilepath != null" >
+        #{allfilepath,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="datasec != null" >
+        #{datasec,jdbcType=VARCHAR},
+      </if>
+      <if test="taizhen != null" >
+        #{taizhen,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="xiazailishi" resultMap="BaseResultMap" parameterType="org.pojo.MdTasktable" >
+		SELECT * FROM (SELECT * FROM  md_tasktable ORDER BY reviewed) a WHERE a.applyname=#{applyname} and taizhen=#{taizhen} GROUP BY applytime , applyname ORDER BY applytime DESC
+	</select>
+  <select id="countByExample" parameterType="org.pojo.MdTasktableExample" resultType="java.lang.Integer" >
+    select count(*) from md_tasktable
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="xiazailishi1" resultMap="BaseResultMap" parameterType="org.pojo.MdTasktable" >
+		SELECT * FROM md_tasktable a WHERE a.applyname=#{applyname} and a.applytime=#{applytime}
+  </select>
+  <update id="downloads" parameterType="org.pojo.MdTasktable">
+		update md_tasktable a set reviewed = '3' where a.id = #{id}
+  </update>
+  
+  <update id="xiazaidead">
+		UPDATE md_tasktable SET reviewed='4' WHERE deadline &lt;=NOW() and deadline IS NOT NULL
+	</update>
+<update id="shenpixiazai" parameterType="org.pojo.MdTasktable">
+		UPDATE md_tasktable a SET a.reviewed=#{reviewed},a.auditor=#{auditor},a.deadline=#{deadline},a.flag='1' WHERE a.applyname=#{applyname} and a.applytime=#{applytime}
+	</update>
+	
+	<update id="update22" parameterType="org.pojo.MdTasktable">
+		UPDATE md_tasktable a SET a.allfilepath=#{allfilepath} WHERE a.applyname=#{applyname} and a.applytime=#{applytime}
+	</update>
+  
+  
+  <update id="updateByExampleSelective" parameterType="map" >
+    update md_tasktable
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.depid != null" >
+        DepID = #{record.depid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.twUuid != null" >
+        tw_uuid = #{record.twUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditor != null" >
+        auditor = #{record.auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyname != null" >
+        applyname = #{record.applyname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deadline != null" >
+        deadline = #{record.deadline,jdbcType=VARCHAR},
+      </if>
+      <if test="record.twName != null" >
+        tw_name = #{record.twName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tzStaname != null" >
+        tz_staname = #{record.tzStaname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tzStype != null" >
+        tz_stype = #{record.tzStype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.twStarttime != null" >
+        tw_starttime = #{record.twStarttime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reviewed != null" >
+        reviewed = #{record.reviewed,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applytime != null" >
+        applytime = #{record.applytime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filepath != null" >
+        filepath = #{record.filepath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.allfilepath != null" >
+        allfilepath = #{record.allfilepath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flag != null" >
+        flag = #{record.flag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.datasec != null" >
+        datasec = #{record.datasec,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taizhen != null" >
+        taizhen = #{record.taizhen,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  
+  <update id="updateByExample" parameterType="map" >
+    update md_tasktable
+    set id = #{record.id,jdbcType=INTEGER},
+      DepID = #{record.depid,jdbcType=VARCHAR},
+      tw_uuid = #{record.twUuid,jdbcType=VARCHAR},
+      auditor = #{record.auditor,jdbcType=VARCHAR},
+      applyname = #{record.applyname,jdbcType=VARCHAR},
+      deadline = #{record.deadline,jdbcType=VARCHAR},
+      tw_name = #{record.twName,jdbcType=VARCHAR},
+      tz_staname = #{record.tzStaname,jdbcType=VARCHAR},
+      tz_stype = #{record.tzStype,jdbcType=VARCHAR},
+      tw_starttime = #{record.twStarttime,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      reviewed = #{record.reviewed,jdbcType=VARCHAR},
+      applytime = #{record.applytime,jdbcType=VARCHAR},
+      filepath = #{record.filepath,jdbcType=VARCHAR},
+      allfilepath = #{record.allfilepath,jdbcType=VARCHAR},
+      flag = #{record.flag,jdbcType=VARCHAR},
+      datasec = #{record.datasec,jdbcType=VARCHAR},
+      taizhen = #{record.taizhen,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.pojo.MdTasktable" >
+    update md_tasktable
+    <set >
+      <if test="depid != null" >
+        DepID = #{depid,jdbcType=VARCHAR},
+      </if>
+      <if test="twUuid != null" >
+        tw_uuid = #{twUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="auditor != null" >
+        auditor = #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="applyname != null" >
+        applyname = #{applyname,jdbcType=VARCHAR},
+      </if>
+      <if test="deadline != null" >
+        deadline = #{deadline,jdbcType=VARCHAR},
+      </if>
+      <if test="twName != null" >
+        tw_name = #{twName,jdbcType=VARCHAR},
+      </if>
+      <if test="tzStaname != null" >
+        tz_staname = #{tzStaname,jdbcType=VARCHAR},
+      </if>
+      <if test="tzStype != null" >
+        tz_stype = #{tzStype,jdbcType=VARCHAR},
+      </if>
+      <if test="twStarttime != null" >
+        tw_starttime = #{twStarttime,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewed != null" >
+        reviewed = #{reviewed,jdbcType=VARCHAR},
+      </if>
+      <if test="applytime != null" >
+        applytime = #{applytime,jdbcType=VARCHAR},
+      </if>
+      <if test="filepath != null" >
+        filepath = #{filepath,jdbcType=VARCHAR},
+      </if>
+      <if test="allfilepath != null" >
+        allfilepath = #{allfilepath,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        flag = #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="datasec != null" >
+        datasec = #{datasec,jdbcType=VARCHAR},
+      </if>
+      <if test="taizhen != null" >
+        taizhen = #{taizhen,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.pojo.MdTasktable" >
+    update md_tasktable
+    set DepID = #{depid,jdbcType=VARCHAR},
+      tw_uuid = #{twUuid,jdbcType=VARCHAR},
+      auditor = #{auditor,jdbcType=VARCHAR},
+      applyname = #{applyname,jdbcType=VARCHAR},
+      deadline = #{deadline,jdbcType=VARCHAR},
+      tw_name = #{twName,jdbcType=VARCHAR},
+      tz_staname = #{tzStaname,jdbcType=VARCHAR},
+      tz_stype = #{tzStype,jdbcType=VARCHAR},
+      tw_starttime = #{twStarttime,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      reviewed = #{reviewed,jdbcType=VARCHAR},
+      applytime = #{applytime,jdbcType=VARCHAR},
+      filepath = #{filepath,jdbcType=VARCHAR},
+      allfilepath = #{allfilepath,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=VARCHAR},
+      datasec = #{datasec,jdbcType=VARCHAR},
+      taizhen = #{taizhen,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
